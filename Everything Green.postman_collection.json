@@ -24,13 +24,6 @@
 					],
 					"path": [
 						"users"
-					],
-					"query": [
-						{
-							"key": "authorization",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FkYmNjZmI1MzNlMmZhYmIyYjU1ZWMiLCJpYXQiOjE3Mzk0MzkzMTEsImV4cCI6MTczOTQ0MjkxMX0.EXd__hNRCT1elqC3vaCDmxbS_vpvjfbAd2Q1f7e4igM",
-							"disabled": true
-						}
 					]
 				}
 			},
