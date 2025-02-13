@@ -1,19 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import Users from "@/models/Users";
+import { UserModel } from "@/models/Users";
 
 connectDB();
 
-const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
+const SECRET_KEY = "everyThingGreen_client_secret_key";
+import { authenticate } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Authenticate the request
+  const userId = await authenticate(request);
+
+  // If authentication fails, return the error response
+  if (userId instanceof NextResponse) {
+    return userId;
+  }
+
   try {
-    const users = await Users.find({});
-    return NextResponse.json(users);
+    // Fetch the user from the database
+    const user = await UserModel.findById(userId);
+
+    // If the user is not found, return a 404 error
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    // Return the user data
+    return NextResponse.json(user);
   } catch (error) {
+    // Handle server errors
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }
 }
@@ -23,14 +41,20 @@ export async function POST(request: Request) {
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
+    const userData = { name, email, password: hashedPassword };
+    const user = await UserModel.create(userData);
 
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
       expiresIn: "1h",
     });
-    return NextResponse.json({ token }, { status: 201 });
+    return NextResponse.json(
+      { message: "User created successfully", accessToken: token, user },
+      { status: 201 }
+    );
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: { "Server error": error } },
+      { status: 500 }
+    );
   }
 }
