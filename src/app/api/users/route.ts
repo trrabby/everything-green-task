@@ -4,56 +4,52 @@ import connectDB from "@/lib/db";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { UserModel } from "@/models/Users";
-
-connectDB();
-
-const SECRET_KEY = "everyThingGreen_client_secret_key";
 import { authenticate } from "@/lib/auth";
 
+const SECRET_KEY = "everyThingGreen_client_secret_key";
+
+// Connect to the database
+connectDB();
+
+// 🔹 GET Request: Fetch user data after authentication
 export async function GET(request: NextRequest) {
-  // Authenticate the request
-  const userId = await authenticate(request);
-
-  // If authentication fails, return the error response
-  if (userId instanceof NextResponse) {
-    return userId;
-  }
-
-  try {
-    // Fetch the user from the database
-    const user = await UserModel.findById(userId);
-
-    // If the user is not found, return a 404 error
-    if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
+  return authenticate(request, async () => {
+    try {
+      const user = await UserModel.find();
+      return NextResponse.json(user);
+    } catch (error) {
+      return NextResponse.json(
+        { message: "Server error", error },
+        { status: 500 }
+      );
     }
-
-    // Return the user data
-    return NextResponse.json(user);
-  } catch (error) {
-    // Handle server errors
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
-  }
+  });
 }
 
-export async function POST(request: Request) {
-  const { name, email, password } = await request.json();
-
+// 🔹 POST Request: Register a new user & generate a token
+export async function POST(request: NextRequest) {
   try {
+    const { name, email, password } = await request.json();
+
+    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
     const userData = { name, email, password: hashedPassword };
+
+    // Create user in DB
     const user = await UserModel.create(userData);
 
+    // Generate JWT token
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
       expiresIn: "1h",
     });
+
     return NextResponse.json(
       { message: "User created successfully", accessToken: token, user },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: { "Server error": error } },
+      { message: "Server error", error },
       { status: 500 }
     );
   }
