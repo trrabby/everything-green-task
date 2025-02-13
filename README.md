@@ -1,13 +1,13 @@
 Next.js API and Webhook Implementation
+
 This project implements two tasks:
 
 Task 1: API Development & Authentication - A RESTful API with JWT authentication.
-
 Task 2: Webhook Implementation - A webhook endpoint that validates requests and stores data in a JSON file.
 
 Features
-Task 1: API Development & Authentication
 
+Task 1: API Development & Authentication
 GET /api/users: Fetch all users.
 POST /api/users: Add a new user (name, email, password fields).
 GET /api/users/:id: Fetch a single user by ID.
@@ -21,26 +21,19 @@ Return a response: { "success": true, "message": "Received" }.
 
 Technologies Used
 Next.js: Framework for building the API and webhook.
-
 TypeScript: For type-safe development.
-
 MongoDB: Database for storing user data (using Mongoose).
-
 JWT (JSON Web Tokens): For authentication.
-
 Crypto: For HMAC signature validation in the webhook.
-
 Node.js: Runtime environment.
-
 Postman: For testing API endpoints.
 
 Setup and Installation
 Prerequisites
 Node.js (v18 or higher)
-
 MongoDB (or a MongoDB Atlas connection string)
-
 Postman (for testing)
+N.B: Testing Apis of Postman are added to the project. Import the file to your postman or just test it manually.
 
 Steps
 

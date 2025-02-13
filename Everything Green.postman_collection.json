@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "d6bb0445-447c-4f33-8fce-c5e626fb98ac",
+		"name": "Everything Green",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39850861"
+	},
+	"item": [
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FkZjU3N2M2MjQ0MTdjZWM2Y2M2YzQiLCJpYXQiOjE3Mzk0NTM4MTYsImV4cCI6MTczOTQ1NzQxNn0.Ihj2KtTTJRKerL-UObhEdIzSHosu0ubBMkCqPnzZJWk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{http://localhost:3000/api}}/users",
+					"host": [
+						"{{http://localhost:3000/api}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FkYmNjZmI1MzNlMmZhYmIyYjU1ZWMiLCJpYXQiOjE3Mzk0MzkzMTEsImV4cCI6MTczOTQ0MjkxMX0.EXd__hNRCT1elqC3vaCDmxbS_vpvjfbAd2Q1f7e4igM",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FkZjU3N2M2MjQ0MTdjZWM2Y2M2YzQiLCJpYXQiOjE3Mzk0NTM4MTYsImV4cCI6MTczOTQ1NzQxNn0.Ihj2KtTTJRKerL-UObhEdIzSHosu0ubBMkCqPnzZJWk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Towfique\",\r\n    \"email\":\"trrabby222@gmail.com\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http://localhost:3000/api}}/users",
+					"host": [
+						"{{http://localhost:3000/api}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2FlMjAxMGM2MjQ0MTdjZWM2Y2M2ZTUiLCJpYXQiOjE3Mzk0NjQ3MjAsImV4cCI6MTczOTQ2ODMyMH0.JaFtFbE7CO1akPZHdgpwZWpLMq-mvDd9TARIJVFP5Jc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{http://localhost:3000/api}}/users/67ae2010c624417cec6cc6e5",
+					"host": [
+						"{{http://localhost:3000/api}}"
+					],
+					"path": [
+						"users",
+						"67ae2010c624417cec6cc6e5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Web Hook request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "7ef5be301c1dba984977aa4dd733fe5b107ca609bbe42849b3fa222b3d7ba8af",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"eventType\":\"test\",\"data\":{\"foo\":\"bar\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http://localhost:3000/api}}/webhook",
+					"host": [
+						"{{http://localhost:3000/api}}"
+					],
+					"path": [
+						"webhook"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
