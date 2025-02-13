@@ -1,0 +1,23 @@
+[
+  {
+    "eventType": "test",
+    "data": {
+      "foo": "bar"
+    },
+    "timestamp": "2025-02-13T16:09:39.699Z"
+  },
+  {
+    "eventType": "test",
+    "data": {
+      "foo": "bar"
+    },
+    "timestamp": "2025-02-13T16:11:19.937Z"
+  },
+  {
+    "eventType": "test",
+    "data": {
+      "foo": "bar"
+    },
+    "timestamp": "2025-02-13T16:11:22.176Z"
+  }
+]
